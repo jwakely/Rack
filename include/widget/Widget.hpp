@@ -102,11 +102,11 @@ struct Widget {
 	/** Recurses an event to all visible Widgets */
 	template <typename TMethod, class TEvent>
 	void recurseEvent(TMethod f, const TEvent& e) {
-		for (auto it = children.rbegin(); it != children.rend(); it++) {
+		for (auto it = children.rbegin(); it != children.rend();) {
 			// Stop propagation if requested
 			if (!e.isPropagating())
 				break;
-			Widget* child = *it;
+			Widget* child = *it++;
 			// Filter child by visibility
 			if (!child->visible)
 				continue;
@@ -121,11 +121,11 @@ struct Widget {
 	/** Recurses an event to all visible Widgets until it is consumed. */
 	template <typename TMethod, class TEvent>
 	void recursePositionEvent(TMethod f, const TEvent& e) {
-		for (auto it = children.rbegin(); it != children.rend(); it++) {
+		for (auto it = children.rbegin(); it != children.rend();) {
 			// Stop propagation if requested
 			if (!e.isPropagating())
 				break;
-			Widget* child = *it;
+			Widget* child = *it++;
 			// Filter child by visibility and position
 			if (!child->visible)
 				continue;
